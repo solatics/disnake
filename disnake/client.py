@@ -303,6 +303,23 @@ class Client:
             Changes the log level of corresponding messages from ``DEBUG`` to ``INFO`` or ``print``\\s them,
             instead of controlling whether they are enabled at all.
 
+    max_ratelimit_wait: :class:`float`
+        How long the library should wait for a ratelimit, or raise a :exc:`RatelimitTooLong` exception.
+        If set to 0, the library will raise for
+
+        .. versionadded:: 2.5
+
+        .. note::
+            If this is set, **all methods** that may raise a :exc:`HTTPException`
+            may also raise a :exc:`RatelimitTooLong` exception.
+
+            If this is set to ``0``, the library will raise a :exc:`RatelimitTooLong` exception
+            whenever the library would need to sleep for a ratelimit.
+
+        .. warning::
+            This does not apply to global ratelimits.
+            A global ratelimit will continue to sleep irregardless of this setting.
+
     Attributes
     ----------
     ws
